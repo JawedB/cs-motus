@@ -1,0 +1,38 @@
+{
+    "app": {
+        "path": "\/assets\/app-9054f64ab2a2772c478ec2945ad30999.js",
+        "type": "js"
+    },
+    "\/assets\/bootstrap.js": {
+        "path": "\/assets\/bootstrap-c423b8bbc1f9cae218c105ca8ca9f767.js",
+        "type": "js"
+    },
+    "\/assets\/@symfony\/stimulus-bundle\/controllers.js": {
+        "path": "\/assets\/@symfony\/stimulus-bundle\/controllers-681d5c2a920cfefe628eff5b49a60580.js",
+        "type": "js"
+    },
+    "\/assets\/@symfony\/ux-turbo\/turbo_controller.js": {
+        "path": "\/assets\/@symfony\/ux-turbo\/turbo_controller-ce5e32dafdec0b7752f02e3e2cb25751.js",
+        "type": "js"
+    },
+    "\/assets\/controllers\/motus_controller.js": {
+        "path": "\/assets\/controllers\/motus_controller-e93d19b5a7355efdf540902ee90bac68.js",
+        "type": "js"
+    },
+    "\/assets\/styles\/app.css": {
+        "path": "\/assets\/styles\/app-bced77511d6854cd2b69ef7adb15127a.css",
+        "type": "css"
+    },
+    "@hotwired\/stimulus": {
+        "path": "\/assets\/vendor\/@hotwired\/stimulus\/stimulus.index-b5b1d00e42695b8959b4a1e94e3bc92a.js",
+        "type": "js"
+    },
+    "@symfony\/stimulus-bundle": {
+        "path": "\/assets\/@symfony\/stimulus-bundle\/loader-e1ee9ace0562f2e6a52301e4ccc8627d.js",
+        "type": "js"
+    },
+    "@hotwired\/turbo": {
+        "path": "\/assets\/vendor\/@hotwired\/turbo\/turbo.index-810f44ef1a202a441e4866b7a4c72d11.js",
+        "type": "js"
+    }
+}
