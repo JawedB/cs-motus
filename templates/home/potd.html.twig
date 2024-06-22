@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="content" data-type="potd" data-controller="motus" id="container-motus">
+    <span class="result" id="win">You won !</span>
+    <span class="result" id="lose">You lost !</span>
+
+    <table id="grid">
+
+    </table>
+
+    <span class="mt-3" id="answer"></span>
+
+    <div id="keyboard">
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+
+<script type="text/javascript">
+    var positivePath = "{{asset('audio/positive_beep.mp3')}}";
+    var negativePath = "{{asset('audio/negative_beep.mp3')}}";
+    var applausePath = "{{asset('audio/applause.mp3')}}";
+    var clickPath = "{{asset('audio/clic.mp3')}}";
+</script>
+
+{% endblock %}

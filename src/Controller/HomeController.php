@@ -15,4 +15,20 @@ class HomeController extends AbstractController
             'controller_name' => 'HomeController',
         ]);
     }
+
+    #[Route('/player-of-the-day', name: 'app_potd')]
+    public function potd(): Response
+    {
+        return $this->render('home/potd.html.twig', [
+            'controller_name' => 'HomeController',
+        ]);
+    }
+
+    #[Route('/streak', name: 'app_streak')]
+    public function streak(): Response
+    {
+        return $this->render('home/streak.html.twig', [
+            'controller_name' => 'HomeController',
+        ]);
+    }
 }

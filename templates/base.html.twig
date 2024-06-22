@@ -15,6 +15,11 @@
         {% block importmap %}{{ importmap('app') }}{% endblock %}
     </head>
     <body>
+        <div class="breadcrumb mt-4">
+            <a href="{{path('app_home')}}"><h1>CS WORDLE</h1></a>
+        </div>
+
         {% block body %}{% endblock %}
+
     </body>
 </html>

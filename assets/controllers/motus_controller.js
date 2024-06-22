@@ -15,13 +15,70 @@ export default class extends Controller {
         const lineNumber = 6;
         var letterOccurences = [];
         var inputContent = "";
-        
+        var isStreakMode = 0;
+        var currentStreak = 0;
 
-        function initGame(player) {
+        function initKeyboard(){
+            let keyboard = document.getElementById("keyboard");
+            keyboard.replaceChildren();
+
+            let row1 = ["q","w","e","r","t","y","u","i","o","p"];
+            let row2 = ["a","s","d","f","g","h","j","k","l","m"];
+            let row3 = ["⌫","z","x","c","v","b","n","↲"];
+
+            let rows = [row1,row2,row3];
+
+            for (let row in rows) {
+                let div = document.createElement("div");
+                div.classList.add("row");
+
+                keyboard.appendChild(div);
+
+                for (let letter in rows[row]) {
+                    let divLetter = document.createElement("div");
+                    divLetter.classList.add("col","letter");
+                    divLetter.setAttribute('data-letter',rows[row][letter]);
+                    divLetter.innerHTML = rows[row][letter];
+
+                    div.appendChild(divLetter);
+                }
+            }
+        }
+
+        function initGame() {
+            currentLine = 1;
+            currentColumn = 0;
+            inputContent = "";
+            let motus = document.getElementById("container-motus");
+            let gametype = motus.getAttribute("data-type");
+            if (gametype === "streak") {
+                isStreakMode = 1;
+            }
+
+            let playerList = [
+                "magixx", "zont1x", "donk", "niko", "hunter", "nexa", "hooxi", "m0nesy", "aleksib", "wonderful", "fl1t", "jame", "norbert", "fame", "snappi", "magisk", "maden",
+                "sunpayus", "boros", "electronic", "siuhy", "torzsi", "jimpphat", "xertion", "gla1ve", "goofy", "dycha", "hades", "kylar", "s1mple", "senzu", "mzinho", "brollan",
+                "br0", "art", "910", "naf", "sdy", "nbk", "b1t", "karrigan", "apex", "rain", "frozen", "magisk", "zywoo", "mezii", "chopper", "hobbit", "ropz", "broky", "sh1ro",
+                "ax1le", "flamez", "spinx", "nertz", "teses", "nicoodoz", "sjuush", "kyxsan", "device", "stavn", "blamef", "jabbi", "staehr", "snax", "acor", "keoz",
+                "isak", "volt", "cadian", "twistzz", "yekindar", "skullz", "bodyy", "krimz", "afro", "kyuubii", "matys", "demqq", "krasnal", "styko", "jkaem", "nawwk", "sense",
+                "cacanito", "maj3r", "xantares", "woxic", "calyx", "wicadia", "elige", "floppy", "hallzerk", "grim", "fallen", "chelo", "kscerato", "chelo", "yuurih", "blitz", "techno",
+                "k1to"
+            ];
+            let player = playerList[Math.floor(Math.random() * playerList.length)];
+            playerToFind = player;
+    
+            // Fill an associative array which count for every letter its occurence
+            letterOccurences = [];
+            for (let i = 0; i < player.length; i++) {
+                let totalOccurences = player.length - player.replaceAll(player[i], '').length;
+                letterOccurences[player[i]] = totalOccurences;
+            }
+
             const parser = new DOMParser();
             let columnNumber = player.length;
             let tableContent = "";
             let grid = document.getElementById("grid");
+            grid.replaceChildren();
 
             for (let i = 0; i < lineNumber; i++) {
                 tableContent += "<tr>"
@@ -34,6 +91,8 @@ export default class extends Controller {
             }
 
             grid.insertAdjacentHTML('beforeend', tableContent);
+
+            console.log(player);
         }
 
         // Example : electronic
@@ -79,10 +138,17 @@ export default class extends Controller {
         }
 
         function checkIfLost() {
-            if (currentLine >= lineNumber) {
-                document.getElementById("lose").style.display = "block"
-                document.getElementById("answer").innerHTML = "The player was : " + playerToFind;
+            if (currentLine > lineNumber) {
                 document.onkeydown = null;
+                let inputLetters = document.getElementsByClassName("letter");
+                for (let i = 0; i < inputLetters.length; i++) {
+                    inputLetters[i].removeEventListener("click", keyClick);
+                }
+                document.getElementById("answer").innerHTML = "The player was : " + playerToFind;
+
+                if(!isStreakMode) {
+                    document.getElementById("lose").style.display = "block"
+                }   
             }
         }
 
@@ -101,21 +167,31 @@ export default class extends Controller {
                 let char = inputContent[i];
                 let td = document.querySelectorAll("#grid tr:nth-of-type(" + currentLine + ") > td")[i];
                 let indexof = player.indexOf(char);
+                let letter = document.querySelectorAll("[data-letter='"+char+"']")[0];
                 
                 if (char != player[i]) {
                     if (indexof != -1) {
                         // char is detected but on wrong place
                         if (isLetterNeeded(char, player, tempLetterOccurences)) {
                             td.style.backgroundColor = "rgb(255, 189, 0)";
+                            if (!letter.classList.contains("letter-red")) {
+                                letter.classList.add("letter-yellow");
+                            }
                         }
                     } else {
                         // char not detected at all
                         td.style.backgroundColor = "rgb(3, 122, 202)";
+                        if (!letter.classList.contains("letter-gray")) {
+                            letter.classList.add("letter-gray");
+                        }
                         audioNegative.play();
                     }
                 } else {
                     // char in good place
                     td.style.backgroundColor = "rgb(231, 0, 42)";
+                    letter.classList.remove("letter-yellow");
+                    letter.style.backgroundColor = "rgb(231, 0, 42)";
+
                     correctAnswers++;
                     // Example : word is device, input is eleee
                     // At this moment, first 2 e will be yellow cause they don't know yet last E is red
@@ -126,19 +202,32 @@ export default class extends Controller {
                 }
             }
 
-            console.log("correctAnswers = "+correctAnswers + " / player.length = "+player.length);
+            currentLine++;
+            currentColumn = 0;
+            inputContent = "";
+
             if (correctAnswers == player.length) {
-                document.getElementById("win").style.display = "block";
-                audioApplause.play();
-                document.onkeydown = null;
+                if(!isStreakMode) {
+                    document.getElementById("win").style.display = "block";
+                    audioApplause.play();
+                    document.onkeydown = null;
+                    let inputLetters = document.getElementsByClassName("letter");
+                    for (let i = 0; i < inputLetters.length; i++) {
+                        inputLetters[i].removeEventListener("click", keyClick);
+                    }
+                } else {
+                    initKeyboard();
+                    initGame();
+                    currentStreak++;
+                    updateStreak();
+                }
             } else {
                 checkIfLost();
             }
+        }
 
-            currentLine++;
-            currentColumn = 0;
-
-            inputContent = "";
+        function updateStreak() {
+            document.getElementById("current-streak").innerHTML = "Current streak : "+currentStreak;
         }
 
         function jumpLine() {
@@ -157,44 +246,49 @@ export default class extends Controller {
             currentColumn = 0;
         }
 
-        let playerList = [
-            "magixx", "zont1x", "donk", "niko", "hunter", "nexa", "hooxi", "m0nesy", "aleksib", "wonderful", "fl1t", "jame", "norbert", "fame", "snappi", "magisk", "maden",
-            "sunpayus", "boros", "electronic", "siuhy", "torzsi", "jimpphat", "xertion", "gla1ve", "goofy", "dycha", "hades", "kylar", "s1mple", "senzu", "mzinho", "brollan",
-            "br0", "art", "910", "naf", "sdy", "nbk", "b1t", "karrigan", "apex", "rain", "frozen", "magisk", "zywoo", "mezii", "chopper", "hobbit", "ropz", "broky", "sh1ro",
-            "ax1le", "flamez", "spinx", "nertz", "teses", "nicoodoz", "sjuush", "kyxsan", "device", "stavn", "blamef", "jabbi", "staehr", "snax", "acor", "keoz",
-            "isak", "volt", "cadian", "twistzz", "yekindar", "skullz", "bodyy", "krimz", "afro", "kyuubii", "matys", "demqq", "krasnal", "styko", "jkaem", "nawwk", "sense",
-            "cacanito", "maj3r", "xantares", "woxic", "calyx", "wicadia", "elige", "floppy", "hallzerk", "grim", "fallen", "chelo", "kscerato", "chelo", "yuurih", "blitz", "techno",
-            "k1to"
-        ];
-        let player = playerList[Math.floor(Math.random() * playerList.length)];
-        playerToFind = player;
-
-        // Fill an associative array which count for every letter its occurence
-        for (let i = 0; i < player.length; i++) {
-            let totalOccurences = player.length - player.replaceAll(player[i], '').length;
-            letterOccurences[player[i]] = totalOccurences;
+        function convertToKeyCode(target) {
+            if(target === "↲") {
+                return 13;
+            } else if (target === "⌫") {
+                return 8;
+            } else {
+                var keyCode = target.toUpperCase().charCodeAt(0);
+                return keyCode;
+            }
         }
 
-        console.log(player);
+        // Starting game
+        initKeyboard();
+        initGame();
 
-        initGame(player);
+        let inputLetters = document.getElementsByClassName("letter");
+        for (let i = 0; i < inputLetters.length; i++) {
+            inputLetters[i].addEventListener("click", keyClick, false);
+        }
 
         document.onkeydown = keyInput;
+
+        function keyClick () {
+            let object = {
+                keyCode: convertToKeyCode(this.getAttribute("data-letter"))
+            }
+            keyInput(object);
+        }
 
         function keyInput (e) {
             if (e.keyCode === 13) {  // Enter
                 // check player only if answer provided is long enough
-                if (inputContent.length != player.length) {
+                if (inputContent.length != playerToFind.length) {
                     jumpLine();
                 } else {
-                    checkLine(player)
+                    checkLine(playerToFind)
                 }
             } else if (e.keyCode === 8) { // Return - remove last char
                 inputContent = inputContent.slice(0, -1);
                 currentColumn--;
                 document.querySelectorAll("#grid tr:nth-of-type(" + currentLine + ") td")[currentColumn].innerHTML = '.';
             } else if ((e.keyCode >= 65 && e.keyCode <= 90) || e.keyCode >= 48 && e.keyCode <= 57) { // a-z 0-9
-                var char = String.fromCharCode(e.which);
+                var char = String.fromCharCode(e.keyCode);
 
                 document.querySelectorAll("#grid tr:nth-of-type(" + currentLine + ") td")[currentColumn].innerHTML = char;
                 currentColumn++;

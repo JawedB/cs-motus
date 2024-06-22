@@ -9,8 +9,8 @@
     "audio\/negative_beep.mp3": "\/assets\/audio\/negative_beep-a74ffa89b3caec1e3a78500f5c124098.mp3",
     "audio\/positive_beep.mp3": "\/assets\/audio\/positive_beep-1a6873b8ee66b338054a16c686a64268.mp3",
     "bootstrap.js": "\/assets\/bootstrap-c423b8bbc1f9cae218c105ca8ca9f767.js",
-    "controllers\/motus_controller.js": "\/assets\/controllers\/motus_controller-e93d19b5a7355efdf540902ee90bac68.js",
-    "styles\/app.css": "\/assets\/styles\/app-bced77511d6854cd2b69ef7adb15127a.css",
+    "controllers\/motus_controller.js": "\/assets\/controllers\/motus_controller-d473d0eddf98ac4144d56350ec67d237.js",
+    "styles\/app.css": "\/assets\/styles\/app-2974059f2d58132f2a02b3b79df20b23.css",
     "vendor\/@hotwired\/stimulus\/stimulus.index.js": "\/assets\/vendor\/@hotwired\/stimulus\/stimulus.index-b5b1d00e42695b8959b4a1e94e3bc92a.js",
     "vendor\/@hotwired\/turbo\/turbo.index.js": "\/assets\/vendor\/@hotwired\/turbo\/turbo.index-810f44ef1a202a441e4866b7a4c72d11.js"
 }

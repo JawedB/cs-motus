@@ -21,7 +21,7 @@ body {
     height: 10vh;
 }
 
-.content {
+.content, .breadcrumb {
     display: flex;
     flex-direction: column;
     margin-left: 25%;
@@ -33,4 +33,60 @@ body {
     font-size: 1.5rem;
     text-transform: uppercase;
     text-align: center;
+}
+
+.links a {
+    background-color: white;
+    border-radius: 5px;
+    width: 50%;
+    margin: auto;
+    text-decoration: none;
+    color: rgb(43,43,43);
+    padding: 0.51rem;
+    box-shadow: 10px 5px 5px black;
+    margin-top: 1.5rem;
+}
+
+.links a:hover {
+    box-shadow: none;
+}
+
+.breadcrumb a {
+    text-decoration: none;
+    color: white;
+}
+
+.letter {
+    font-size: 18px;
+    display: flex;
+    border: 1px solid white;
+    border-radius: 5px;
+    user-select: none;
+    flex-grow: 1;
+    flex-shrink: 0;
+    height: 45px;
+    align-items: center;
+    justify-content: center;
+    font-family: "RobotoMono Regular", monospace;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-left: 5px;
+}
+
+.letter:hover{
+    cursor: pointer;
+    background-color: rgba(75, 75, 75, 0.65);
+}
+
+.letter-red {
+    background-color: rgb(231, 0, 42);
+}
+
+.letter-yellow {
+    background-color: rgb(255, 189, 0);
+}
+
+.letter-gray {
+    color: rgb(112,112,112);
+    border: 1px solid rgb(112,112,112);
 }
