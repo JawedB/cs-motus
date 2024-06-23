@@ -9,7 +9,7 @@
     "audio\/negative_beep.mp3": "\/assets\/audio\/negative_beep-a74ffa89b3caec1e3a78500f5c124098.mp3",
     "audio\/positive_beep.mp3": "\/assets\/audio\/positive_beep-1a6873b8ee66b338054a16c686a64268.mp3",
     "bootstrap.js": "\/assets\/bootstrap-c423b8bbc1f9cae218c105ca8ca9f767.js",
-    "controllers\/motus_controller.js": "\/assets\/controllers\/motus_controller-92c0261e147fa48d8d4fed5ca9727895.js",
+    "controllers\/motus_controller.js": "\/assets\/controllers\/motus_controller-e23330d12a880a102e4683d39274362f.js",
     "img\/Xlogo.svg": "\/assets\/img\/Xlogo-738dc57358dd22932042b7dc7c434871.svg",
     "styles\/app.css": "\/assets\/styles\/app-b26357c05268afeee190837086f6a0f9.css",
     "vendor\/@hotwired\/stimulus\/stimulus.index.js": "\/assets\/vendor\/@hotwired\/stimulus\/stimulus.index-b5b1d00e42695b8959b4a1e94e3bc92a.js",

@@ -271,7 +271,7 @@ export default class extends Controller {
                 document.getElementById("attempts").innerHTML = "You found the player of the day after "+attempts+" attempts";
             } else {
                 document.getElementById("modal-title").innerHTML = "Too bad";
-                document.getElementById("answer").innerHTML = "The player was : " + playerToFind;
+                document.getElementById("attempts").innerHTML = "The player was : " + playerToFind;
             }
             modal.show();
         }
