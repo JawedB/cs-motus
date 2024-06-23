@@ -1,25 +1,61 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+	<head>
+		<meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>
+			{% block title %}Welcome!
+			{% endblock %}
+		</title>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+		{% block stylesheets %}{% endblock %}
 
-        {% block stylesheets %}
-        {% endblock %}
+		{% block javascripts %}{% endblock %}
 
-        {% block javascripts %}
-        {% endblock %}
-        
-        {% block importmap %}{{ importmap('app') }}{% endblock %}
-    </head>
-    <body>
-        <div class="breadcrumb mt-4">
-            <a href="{{path('app_home')}}"><h1>CS WORDLE</h1></a>
-        </div>
+		{% block importmap %}
+			{{ importmap('app') }}
+		{% endblock %}
+	</head>
+	<body>
+		<div class="breadcrumb mt-4">
+			<a href="{{path('app_home')}}">
+				<h1>CS WORDLE</h1>
+			</a>
+		</div>
 
-        {% block body %}{% endblock %}
+		<div class="modal fade" id="modal-result" tabindex="-1" role="dialog" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="modal-title"></h5>
 
-    </body>
+						<button type="button" id="close-modal" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div id="attempts"></div>
+						<div id="share">
+
+							<div id="resume"></div>
+
+							<a id="twitter-share-button" href="https://twitter.com/intent/tweet" target="_blank">
+								<img src="{{asset('img/Xlogo.svg')}}"/>
+								Share your score
+							</a>
+						</div>
+						<div id="streak">Try to guess as many players as you can in the
+							<a href="{{path('app_streak')}}">Streak</a>
+							mode !
+                        </div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		{% block body %}{% endblock %}
+
+	</body>
 </html>
+

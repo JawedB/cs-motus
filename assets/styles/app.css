@@ -1,6 +1,6 @@
 body {
     font-family: "Roboto Regular", "Ubuntu", Arial, Helvetica, sans-serif;
-    background-color: rgb(43,43,43);
+    background-color: rgb(43, 43, 43);
 }
 
 .result {
@@ -21,7 +21,8 @@ body {
     height: 10vh;
 }
 
-.content, .breadcrumb {
+.content,
+.breadcrumb {
     display: flex;
     flex-direction: column;
     margin-left: 25%;
@@ -41,7 +42,7 @@ body {
     width: 50%;
     margin: auto;
     text-decoration: none;
-    color: rgb(43,43,43);
+    color: rgb(43, 43, 43);
     padding: 0.51rem;
     box-shadow: 10px 5px 5px black;
     margin-top: 1.5rem;
@@ -73,20 +74,78 @@ body {
     margin-left: 5px;
 }
 
-.letter:hover{
+.letter:hover {
     cursor: pointer;
     background-color: rgba(75, 75, 75, 0.65);
 }
 
 .letter-red {
-    background-color: rgb(231, 0, 42);
+    background-color: rgb(231, 0, 42) !important;
 }
 
 .letter-yellow {
-    background-color: rgb(255, 189, 0);
+    background-color: rgb(255, 189, 0) !important;
+}
+
+.letter-black {
+    background-color: rgb(60, 108, 140) !important;
 }
 
 .letter-gray {
-    color: rgb(112,112,112);
-    border: 1px solid rgb(112,112,112);
+    color: rgb(112, 112, 112);
+    border: 1px solid rgb(112, 112, 112);
+}
+
+/* Modal */
+.modal-content {
+    background-color: rgb(43, 43, 43);
+    color: white;
+    height: 600px;
+}
+
+.modal-body {
+    padding-top: 1.5em;
+    color: white;
+    font-size: 24px;
+}
+
+#modal-title {
+    font-size: 32px;
+}
+
+.modal-header button {
+    background: none;
+    border: none;
+    color: white;
+}
+
+.modal-header span {
+    font-size: 32px;
+}
+
+#twitter-share-button {
+    text-decoration: none;
+    color: white;
+    padding: 0.4rem 1rem;
+    background-color: black;
+    border-radius: 5px;
+}
+
+#twitter-share-button img {
+    width: 20px;
+    vertical-align: baseline;
+}
+
+#share {
+    margin-top: 1em;
+}
+
+#resume {
+    margin-bottom: 1em;
+}
+
+#streak {
+    margin-top: 1rem;
+    position: absolute;
+    bottom: 1.5em;
 }

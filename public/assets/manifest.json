@@ -9,8 +9,9 @@
     "audio\/negative_beep.mp3": "\/assets\/audio\/negative_beep-a74ffa89b3caec1e3a78500f5c124098.mp3",
     "audio\/positive_beep.mp3": "\/assets\/audio\/positive_beep-1a6873b8ee66b338054a16c686a64268.mp3",
     "bootstrap.js": "\/assets\/bootstrap-c423b8bbc1f9cae218c105ca8ca9f767.js",
-    "controllers\/motus_controller.js": "\/assets\/controllers\/motus_controller-d473d0eddf98ac4144d56350ec67d237.js",
-    "styles\/app.css": "\/assets\/styles\/app-2974059f2d58132f2a02b3b79df20b23.css",
+    "controllers\/motus_controller.js": "\/assets\/controllers\/motus_controller-92c0261e147fa48d8d4fed5ca9727895.js",
+    "img\/Xlogo.svg": "\/assets\/img\/Xlogo-738dc57358dd22932042b7dc7c434871.svg",
+    "styles\/app.css": "\/assets\/styles\/app-b26357c05268afeee190837086f6a0f9.css",
     "vendor\/@hotwired\/stimulus\/stimulus.index.js": "\/assets\/vendor\/@hotwired\/stimulus\/stimulus.index-b5b1d00e42695b8959b4a1e94e3bc92a.js",
     "vendor\/@hotwired\/turbo\/turbo.index.js": "\/assets\/vendor\/@hotwired\/turbo\/turbo.index-810f44ef1a202a441e4866b7a4c72d11.js"
 }

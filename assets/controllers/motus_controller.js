@@ -2,6 +2,10 @@ import { Controller } from '@hotwired/stimulus';
 
 export default class extends Controller {
     connect() {
+        // Init Modal
+        var modal = new bootstrap.Modal(document.getElementById('modal-result'));
+        document.getElementById("close-modal").addEventListener("click", function(){modal.hide()}, false);
+
         // Global Variables
         var playerToFind = "";
         var currentLine = 1;
@@ -131,9 +135,8 @@ export default class extends Controller {
                     }
                 }
 
-                //let td = $("#grid treq(" + currentLine + ") td").eq(i - 1);
                 let td = document.querySelectorAll("#grid tr:nth-of-type(" + currentLine + ") > td")[i - 1];
-                td.style.backgroundColor = "rgb(3, 122, 202)";
+                td.classList.remove("letter-yellow");
             }
         }
 
@@ -144,11 +147,8 @@ export default class extends Controller {
                 for (let i = 0; i < inputLetters.length; i++) {
                     inputLetters[i].removeEventListener("click", keyClick);
                 }
-                document.getElementById("answer").innerHTML = "The player was : " + playerToFind;
 
-                if(!isStreakMode) {
-                    document.getElementById("lose").style.display = "block"
-                }   
+                showModal("lose");
             }
         }
 
@@ -173,14 +173,14 @@ export default class extends Controller {
                     if (indexof != -1) {
                         // char is detected but on wrong place
                         if (isLetterNeeded(char, player, tempLetterOccurences)) {
-                            td.style.backgroundColor = "rgb(255, 189, 0)";
+                            td.classList.add("letter-yellow");
                             if (!letter.classList.contains("letter-red")) {
                                 letter.classList.add("letter-yellow");
                             }
                         }
                     } else {
                         // char not detected at all
-                        td.style.backgroundColor = "rgb(3, 122, 202)";
+                        td.classList.add("letter-none");
                         if (!letter.classList.contains("letter-gray")) {
                             letter.classList.add("letter-gray");
                         }
@@ -188,7 +188,7 @@ export default class extends Controller {
                     }
                 } else {
                     // char in good place
-                    td.style.backgroundColor = "rgb(231, 0, 42)";
+                    td.classList.add("letter-red");
                     letter.classList.remove("letter-yellow");
                     letter.style.backgroundColor = "rgb(231, 0, 42)";
 
@@ -208,7 +208,7 @@ export default class extends Controller {
 
             if (correctAnswers == player.length) {
                 if(!isStreakMode) {
-                    document.getElementById("win").style.display = "block";
+                    showModal("win");
                     audioApplause.play();
                     document.onkeydown = null;
                     let inputLetters = document.getElementsByClassName("letter");
@@ -226,6 +226,56 @@ export default class extends Controller {
             }
         }
 
+        function resumeGame(score, attempts) {
+            var table = document.getElementById("grid");
+            let red = "🟥";
+            let black = "🟦";
+            let yellow = "🟨";
+            let result = "";
+
+            for (let i = 0, row; row = table.rows[i]; i++) {
+
+                if(i >= attempts) { break; }
+
+                for (let j = 0, col; col = row.cells[j]; j++) {
+                    if(col.classList == "letter-red") {
+                        result += red;
+                    } else if(col.classList == "letter-yellow") {
+                        result += yellow;
+                    } else {
+                        result += black;
+                    }
+                    result += " ";
+                }
+                result += "<br />"
+            }
+
+            let emoji = "";
+            if(score === "win") {
+                emoji = "✅";
+            } else {
+                emoji = "❌"
+            }
+
+            document.getElementById("resume").innerHTML = result;
+            document.getElementById("twitter-share-button").href = "https://twitter.com/intent/tweet?text="+emoji+" CS WORDLE 456 %0A%0A"+result.replaceAll("<br />", "%0A")
+                                                                    + "%0Ahttps://cs-wordle.com";
+        }
+
+        function showModal(result) {
+            let attempts = currentLine-1;
+            resumeGame(result, attempts);
+
+            if(result === "win") {
+                document.getElementById("modal-title").innerHTML = "Congratulations";
+                document.getElementById("attempts").innerHTML = "You found the player of the day after "+attempts+" attempts";
+            } else {
+                document.getElementById("modal-title").innerHTML = "Too bad";
+                document.getElementById("answer").innerHTML = "The player was : " + playerToFind;
+            }
+            modal.show();
+        }
+
         function updateStreak() {
             document.getElementById("current-streak").innerHTML = "Current streak : "+currentStreak;
         }
@@ -235,7 +285,7 @@ export default class extends Controller {
             let tds_array = [...tds];
             tds_array.forEach(td => {
                 td.innerHTML = " ";
-                td.style.backgroundColor = "rgb(60, 108, 140)";
+                td.classList.add("letter-black");
             })
 
             audioNegative.play();

@@ -16,11 +16,11 @@
         "type": "js"
     },
     "\/assets\/controllers\/motus_controller.js": {
-        "path": "\/assets\/controllers\/motus_controller-d473d0eddf98ac4144d56350ec67d237.js",
+        "path": "\/assets\/controllers\/motus_controller-92c0261e147fa48d8d4fed5ca9727895.js",
         "type": "js"
     },
     "\/assets\/styles\/app.css": {
-        "path": "\/assets\/styles\/app-2974059f2d58132f2a02b3b79df20b23.css",
+        "path": "\/assets\/styles\/app-b26357c05268afeee190837086f6a0f9.css",
         "type": "css"
     },
     "@hotwired\/stimulus": {

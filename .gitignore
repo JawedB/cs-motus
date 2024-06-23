@@ -1,5 +1,6 @@
 #custom
 /public/*
+/public/assets/*
 .env
 
 # Cache and logs (Symfony2)
