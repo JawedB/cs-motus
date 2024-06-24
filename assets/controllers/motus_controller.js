@@ -28,9 +28,10 @@ export default class extends Controller {
 
             let row1 = ["q","w","e","r","t","y","u","i","o","p"];
             let row2 = ["a","s","d","f","g","h","j","k","l","m"];
-            let row3 = ["⌫","z","x","c","v","b","n","↲"];
+            let row3 = ["0","1","2","3","4","5","6","7","8","9"];
+            let row4 = ["⌫","z","x","c","v","b","n","↲"];
 
-            let rows = [row1,row2,row3];
+            let rows = [row1,row2,row3,row4];
 
             for (let row in rows) {
                 let div = document.createElement("div");
@@ -280,22 +281,6 @@ export default class extends Controller {
             document.getElementById("current-streak").innerHTML = "Current streak : "+currentStreak;
         }
 
-        function jumpLine() {
-            let tds = document.querySelectorAll("#grid tr:nth-of-type(" + currentLine + ") td");
-            let tds_array = [...tds];
-            tds_array.forEach(td => {
-                td.innerHTML = " ";
-                td.classList.add("letter-black");
-            })
-
-            audioNegative.play();
-
-            checkIfLost();
-
-            currentLine++;
-            currentColumn = 0;
-        }
-
         function convertToKeyCode(target) {
             if(target === "↲") {
                 return 13;
@@ -328,9 +313,7 @@ export default class extends Controller {
         function keyInput (e) {
             if (e.keyCode === 13) {  // Enter
                 // check player only if answer provided is long enough
-                if (inputContent.length != playerToFind.length) {
-                    jumpLine();
-                } else {
+                if (inputContent.length == playerToFind.length) {
                     checkLine(playerToFind)
                 }
             } else if (e.keyCode === 8) { // Return - remove last char
@@ -338,16 +321,18 @@ export default class extends Controller {
                 currentColumn--;
                 document.querySelectorAll("#grid tr:nth-of-type(" + currentLine + ") td")[currentColumn].innerHTML = '.';
             } else if ((e.keyCode >= 65 && e.keyCode <= 90) || e.keyCode >= 48 && e.keyCode <= 57) { // a-z 0-9
-                var char = String.fromCharCode(e.keyCode);
+                if (currentColumn < playerToFind.length) {
+                    var char = String.fromCharCode(e.keyCode);
 
-                document.querySelectorAll("#grid tr:nth-of-type(" + currentLine + ") td")[currentColumn].innerHTML = char;
-                currentColumn++;
-
-                let clic = new Audio(clickPath);
-                clic.volume = 0.2;
-                clic.play();
-
-                inputContent += char;
+                    document.querySelectorAll("#grid tr:nth-of-type(" + currentLine + ") td")[currentColumn].innerHTML = char;
+                    currentColumn++;
+    
+                    let clic = new Audio(clickPath);
+                    clic.volume = 0.2;
+                    clic.play();
+    
+                    inputContent += char;
+                }
             }
         };
     }
