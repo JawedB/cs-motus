@@ -5,6 +5,17 @@ export default class extends Controller {
         // Init Modal
         var modal = new bootstrap.Modal(document.getElementById('modal-result'));
         document.getElementById("close-modal").addEventListener("click", function(){modal.hide()}, false);
+        // Sound
+        document.getElementById("sound").addEventListener("click", function(){ 
+            if(this.innerHTML === "🔊") {
+                this.innerHTML = "🔈";
+                isAudio = 0;
+            } else {
+                this.innerHTML = "🔊";
+                isAudio = 1;
+            }
+        }, false);
+        
 
         // Global Variables
         var playerToFind = "";
@@ -21,6 +32,13 @@ export default class extends Controller {
         var inputContent = "";
         var isStreakMode = 0;
         var currentStreak = 0;
+        var isAudio = 1;
+
+        function playAudio(elem) {
+            if(isAudio) {
+                elem.play();
+            }
+        }
 
         function initKeyboard(){
             let keyboard = document.getElementById("keyboard");
@@ -185,7 +203,8 @@ export default class extends Controller {
                         if (!letter.classList.contains("letter-gray")) {
                             letter.classList.add("letter-gray");
                         }
-                        audioNegative.play();
+                 
+                        playAudio(audioNegative);
                     }
                 } else {
                     // char in good place
@@ -199,7 +218,8 @@ export default class extends Controller {
                     // So if we found a red E but occurences already null we have to remove yellow from last E
                     checkLastYellowChar(char, tempLetterOccurences)
                     tempLetterOccurences[char]--;
-                    audioPositive.play();
+
+                    playAudio(audioPositive);
                 }
             }
 
@@ -210,17 +230,20 @@ export default class extends Controller {
             if (correctAnswers == player.length) {
                 if(!isStreakMode) {
                     showModal("win");
-                    audioApplause.play();
+                    playAudio(audioApplause);
                     document.onkeydown = null;
                     let inputLetters = document.getElementsByClassName("letter");
                     for (let i = 0; i < inputLetters.length; i++) {
                         inputLetters[i].removeEventListener("click", keyClick);
                     }
                 } else {
-                    initKeyboard();
-                    initGame();
-                    currentStreak++;
-                    updateStreak();
+                    setTimeout(function (){
+                        initKeyboard();
+                        initGame();
+                        currentStreak++;
+                        updateStreak();                     
+                    }, 1500);
+                    
                 }
             } else {
                 checkIfLost();
@@ -233,6 +256,9 @@ export default class extends Controller {
             let black = "🟦";
             let yellow = "🟨";
             let result = "";
+            let streak = "";
+            let players = (currentStreak > 1) ? "players in a row" : "player";
+            let wordleCount = 456;
 
             for (let i = 0, row; row = table.rows[i]; i++) {
 
@@ -252,28 +278,49 @@ export default class extends Controller {
             }
 
             let emoji = "";
-            if(score === "win") {
+            if (score === "win") {
                 emoji = "✅";
             } else {
-                emoji = "❌"
+                emoji = "❌";
+            }
+
+            if (isStreakMode) {
+                emoji = (currentStreak > 0) ? "✅" : "❌";
+                streak = "I have guessed "+currentStreak+" CS "+players+"%0A%0A";
+                wordleCount = "- STREAK MODE";
             }
 
             document.getElementById("resume").innerHTML = result;
-            document.getElementById("twitter-share-button").href = "https://twitter.com/intent/tweet?text="+emoji+" CS WORDLE 456 %0A%0A"+result.replaceAll("<br />", "%0A")
+            document.getElementById("twitter-share-button").href = "https://twitter.com/intent/tweet?text="+emoji+" CS WORDLE "+wordleCount+" %0A%0A"+streak+result.replaceAll("<br />", "%0A")
                                                                     + "%0Ahttps://cs-wordle.com";
         }
 
         function showModal(result) {
             let attempts = currentLine-1;
+            let modalTitle = "";
+            let modalAttempts = "";
             resumeGame(result, attempts);
 
-            if(result === "win") {
-                document.getElementById("modal-title").innerHTML = "Congratulations";
-                document.getElementById("attempts").innerHTML = "You found the player of the day after "+attempts+" attempts";
+            if(isStreakMode) {
+                document.getElementById("potd").style.display = "block";
+                document.getElementById("streak").style.display = "none";
             } else {
-                document.getElementById("modal-title").innerHTML = "Too bad";
-                document.getElementById("attempts").innerHTML = "The player was : " + playerToFind;
+                document.getElementById("potd").style.display = "none";
+                document.getElementById("streak").style.display = "block";
             }
+
+            if(result === "win") {
+                modalTitle = "Congratulations";
+                modalAttempts = "You found the player of the day after "+attempts+" attempts";
+            } else {
+                modalTitle = "Too bad";
+                modalAttempts = "The player was : " + playerToFind;
+
+                if(isStreakMode) modalTitle = "You guessed "+currentStreak+" players in a row !";   
+            }
+
+            document.getElementById("attempts").innerHTML = modalAttempts;
+            document.getElementById("modal-title").innerHTML = modalTitle;
             modal.show();
         }
 
@@ -329,7 +376,7 @@ export default class extends Controller {
     
                     let clic = new Audio(clickPath);
                     clic.volume = 0.2;
-                    clic.play();
+                    playAudio(clic);
     
                     inputContent += char;
                 }

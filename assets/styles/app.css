@@ -144,8 +144,8 @@ body {
     margin-bottom: 1em;
 }
 
-#streak {
+.modal-footer {
     margin-top: 1rem;
     position: absolute;
-    bottom: 1.5em;
+    bottom: 1em;
 }

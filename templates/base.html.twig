@@ -19,9 +19,9 @@
 	</head>
 	<body>
 		<div class="breadcrumb mt-4">
-			<a href="{{path('app_home')}}">
-				<h1>CS WORDLE</h1>
-			</a>
+			
+			<h1><a href="{{path('app_home')}}">CS WORDLE</a></h1>
+			<div id="sound">🔊</div>
 		</div>
 
 		<div class="modal fade" id="modal-result" tabindex="-1" role="dialog" aria-hidden="true">
@@ -45,10 +45,11 @@
 								Share your score
 							</a>
 						</div>
-						<div id="streak">Try to guess as many players as you can in the
+						<div id="streak" class="modal-footer">Try to guess as many players as you can in the
 							<a href="{{path('app_streak')}}">Streak</a>
 							mode !
                         </div>
+						<div id="potd" class="modal-footer">Did you guess the <a href="{{path('app_potd')}}">player of the day ?</a></div>
 					</div>
 				</div>
 			</div>
