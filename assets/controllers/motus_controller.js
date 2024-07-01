@@ -4,7 +4,12 @@ export default class extends Controller {
     connect() {
         // Init Modal
         var modal = new bootstrap.Modal(document.getElementById('modal-result'));
+        var modalInfo = new bootstrap.Modal(document.getElementById('modal-info'));
+
+        document.getElementById("modal-info-button").addEventListener("click", function(){modalInfo.show()}, false);
+        document.getElementById("close-modal-info").addEventListener("click", function(){modalInfo.hide()}, false);
         document.getElementById("close-modal").addEventListener("click", function(){modal.hide()}, false);
+
         // Sound
         document.getElementById("sound").addEventListener("click", function(){ 
             if(this.innerHTML === "🔊") {
@@ -15,7 +20,6 @@ export default class extends Controller {
                 isAudio = 1;
             }
         }, false);
-        
 
         // Global Variables
         var playerToFind = "";

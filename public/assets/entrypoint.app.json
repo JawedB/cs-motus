@@ -6,5 +6,6 @@
     "\/assets\/@symfony\/stimulus-bundle\/controllers.js",
     "\/assets\/@symfony\/ux-turbo\/turbo_controller.js",
     "\/assets\/controllers\/motus_controller.js",
+    "\/assets\/controllers\/index_controller.js",
     "@hotwired\/turbo"
 ]

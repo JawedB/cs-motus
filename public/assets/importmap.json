@@ -8,7 +8,7 @@
         "type": "js"
     },
     "\/assets\/@symfony\/stimulus-bundle\/controllers.js": {
-        "path": "\/assets\/@symfony\/stimulus-bundle\/controllers-681d5c2a920cfefe628eff5b49a60580.js",
+        "path": "\/assets\/@symfony\/stimulus-bundle\/controllers-6cf8818e9e4c4ada5671a46675bbed82.js",
         "type": "js"
     },
     "\/assets\/@symfony\/ux-turbo\/turbo_controller.js": {
@@ -16,11 +16,15 @@
         "type": "js"
     },
     "\/assets\/controllers\/motus_controller.js": {
-        "path": "\/assets\/controllers\/motus_controller-33ae8bc9c814a5965c3c0a5cc871bf72.js",
+        "path": "\/assets\/controllers\/motus_controller-65b62d791fc4a9a89f15f5a8d6ecbf63.js",
+        "type": "js"
+    },
+    "\/assets\/controllers\/index_controller.js": {
+        "path": "\/assets\/controllers\/index_controller-389ea781e65b2bc0fdfc1a1b524a0543.js",
         "type": "js"
     },
     "\/assets\/styles\/app.css": {
-        "path": "\/assets\/styles\/app-440c50fdea501be95eaf6ad0f689ef83.css",
+        "path": "\/assets\/styles\/app-8b9d6a503bcec01ffdc63cc6edf44ab7.css",
         "type": "css"
     },
     "@hotwired\/stimulus": {
