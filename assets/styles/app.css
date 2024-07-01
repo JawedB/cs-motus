@@ -4,6 +4,10 @@ body {
     height: 100%;
 }
 
+#modal-share-button {
+    display: none;
+}
+
 #sound:hover {
     cursor: pointer;
 }
@@ -37,6 +41,14 @@ body {
     font-size: 1.5rem;
     text-transform: uppercase;
     text-align: center;
+}
+
+#not-valid {
+    opacity: 0;
+}
+
+.topgrid, .btn-style {
+    font-size: 15px;
 }
 
 .content {
@@ -169,6 +181,6 @@ body {
     bottom: 1em;
 }
 
-#modal-info-button:hover {
+#modal-info-button:hover, #modal-share-button:hover {
     cursor: pointer;
 }

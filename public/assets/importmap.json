@@ -16,15 +16,15 @@
         "type": "js"
     },
     "\/assets\/controllers\/motus_controller.js": {
-        "path": "\/assets\/controllers\/motus_controller-65b62d791fc4a9a89f15f5a8d6ecbf63.js",
+        "path": "\/assets\/controllers\/motus_controller-d61735348dd8f3b6d62548bdfd719c04.js",
         "type": "js"
     },
     "\/assets\/controllers\/index_controller.js": {
-        "path": "\/assets\/controllers\/index_controller-389ea781e65b2bc0fdfc1a1b524a0543.js",
+        "path": "\/assets\/controllers\/index_controller-6e2b987c8c9d23580c041dd454681551.js",
         "type": "js"
     },
     "\/assets\/styles\/app.css": {
-        "path": "\/assets\/styles\/app-8b9d6a503bcec01ffdc63cc6edf44ab7.css",
+        "path": "\/assets\/styles\/app-8de55e3abcd0aa3ac69a217daf0f60de.css",
         "type": "css"
     },
     "@hotwired\/stimulus": {

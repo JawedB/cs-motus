@@ -3,13 +3,17 @@
 {% block body %}
 <div class="content" data-type="potd" data-controller="motus" id="container-motus">
 
-    <div class="row mb-1">
-        <div class="col-6 text-start">
+    <div class="row mb-1 topgrid">
+        <div class="col-4 text-start pt-2">
             <span>Player of the day</span>
         </div>
 
-        <div class="col-6 text-end">
-            <a type="button" class="btn btn-warning" href="{{path('app_streak')}}">Play Streak Mode</a>
+        <div class="col-4 text-center">
+            <span class="btn btn-danger" id="not-valid">Not a valid player</span>
+        </div>
+
+        <div class="col-4 text-end">
+            <a type="button" class="btn btn-warning btn-style" href="{{path('app_streak')}}">Play Streak Mode</a>
         </div>
     </div>
 

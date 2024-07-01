@@ -6,13 +6,14 @@ export default class extends Controller {
         var modal = new bootstrap.Modal(document.getElementById('modal-result'));
         var modalInfo = new bootstrap.Modal(document.getElementById('modal-info'));
 
-        document.getElementById("modal-info-button").addEventListener("click", function(){modalInfo.show()}, false);
-        document.getElementById("close-modal-info").addEventListener("click", function(){modalInfo.hide()}, false);
-        document.getElementById("close-modal").addEventListener("click", function(){modal.hide()}, false);
+        document.getElementById("modal-info-button").addEventListener("click", function () { modalInfo.show() }, false);
+        document.getElementById("modal-share-button").addEventListener("click", function () { modal.show() }, false);
+        document.getElementById("close-modal-info").addEventListener("click", function () { modalInfo.hide() }, false);
+        document.getElementById("close-modal").addEventListener("click", function () { modal.hide() }, false);
 
         // Sound
-        document.getElementById("sound").addEventListener("click", function(){ 
-            if(this.innerHTML === "🔊") {
+        document.getElementById("sound").addEventListener("click", function () {
+            if (this.innerHTML === "🔊") {
                 this.innerHTML = "🔈";
                 isAudio = 0;
             } else {
@@ -37,23 +38,24 @@ export default class extends Controller {
         var isStreakMode = 0;
         var currentStreak = 0;
         var isAudio = 1;
+        var playerList = []; // todo : supprimer après passage en BDD
 
         function playAudio(elem) {
-            if(isAudio) {
+            if (isAudio) {
                 elem.play();
             }
         }
 
-        function initKeyboard(){
+        function initKeyboard() {
             let keyboard = document.getElementById("keyboard");
             keyboard.replaceChildren();
 
-            let row1 = ["q","w","e","r","t","y","u","i","o","p"];
-            let row2 = ["a","s","d","f","g","h","j","k","l","m"];
-            let row3 = ["0","1","2","3","4","5","6","7","8","9"];
-            let row4 = ["⌫","z","x","c","v","b","n","↲"];
+            let row1 = ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"];
+            let row2 = ["a", "s", "d", "f", "g", "h", "j", "k", "l", "m"];
+            let row3 = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+            let row4 = ["⌫", "z", "x", "c", "v", "b", "n", "↲"];
 
-            let rows = [row1,row2,row3,row4];
+            let rows = [row1, row2, row3, row4];
 
             for (let row in rows) {
                 let div = document.createElement("div");
@@ -63,8 +65,8 @@ export default class extends Controller {
 
                 for (let letter in rows[row]) {
                     let divLetter = document.createElement("div");
-                    divLetter.classList.add("col","letter");
-                    divLetter.setAttribute('data-letter',rows[row][letter]);
+                    divLetter.classList.add("col", "letter");
+                    divLetter.setAttribute('data-letter', rows[row][letter]);
                     divLetter.innerHTML = rows[row][letter];
 
                     div.appendChild(divLetter);
@@ -82,7 +84,7 @@ export default class extends Controller {
                 isStreakMode = 1;
             }
 
-            let playerList = [
+            playerList = [
                 "magixx", "zont1x", "donk", "niko", "hunter", "nexa", "hooxi", "m0nesy", "aleksib", "wonderful", "fl1t", "jame", "norbert", "fame", "snappi", "magisk", "maden",
                 "sunpayus", "boros", "electronic", "siuhy", "torzsi", "jimpphat", "xertion", "gla1ve", "goofy", "dycha", "hades", "kylar", "s1mple", "senzu", "mzinho", "brollan",
                 "br0", "art", "910", "naf", "sdy", "nbk", "b1t", "karrigan", "apex", "rain", "frozen", "magisk", "zywoo", "mezii", "chopper", "hobbit", "ropz", "broky", "sh1ro",
@@ -93,7 +95,7 @@ export default class extends Controller {
             ];
             let player = playerList[Math.floor(Math.random() * playerList.length)];
             playerToFind = player;
-    
+
             // Fill an associative array which count for every letter its occurence
             letterOccurences = [];
             for (let i = 0; i < player.length; i++) {
@@ -101,11 +103,9 @@ export default class extends Controller {
                 letterOccurences[player[i]] = totalOccurences;
             }
 
-            const parser = new DOMParser();
             let columnNumber = player.length;
             let tableContent = "";
             let grid = document.getElementById("grid");
-            grid.replaceChildren();
 
             for (let i = 0; i < lineNumber; i++) {
                 tableContent += "<tr>"
@@ -117,6 +117,7 @@ export default class extends Controller {
                 tableContent += "</tr>"
             }
 
+            grid.replaceChildren();
             grid.insertAdjacentHTML('beforeend', tableContent);
 
             console.log(player);
@@ -175,6 +176,19 @@ export default class extends Controller {
             }
         }
 
+        function notValidPlayer() {
+            var notValid = document.getElementById("not-valid");
+            notValid.style.transition = '0.8s';
+            notValid.style.opacity = 1;
+            setTimeout(() => {
+                notValid.style.opacity = 0;
+            }, "1500");
+            inputContent = "";
+            currentColumn = 0;
+            let tds = document.querySelectorAll("#grid tr:nth-of-type(" + currentLine + ") td");
+            tds.forEach(td => td.innerHTML = '.');            
+        }
+
         // Check if user word = player to find
         function checkLine(player) {
             inputContent = inputContent.toLowerCase();
@@ -190,8 +204,8 @@ export default class extends Controller {
                 let char = inputContent[i];
                 let td = document.querySelectorAll("#grid tr:nth-of-type(" + currentLine + ") > td")[i];
                 let indexof = player.indexOf(char);
-                let letter = document.querySelectorAll("[data-letter='"+char+"']")[0];
-                
+                let letter = document.querySelectorAll("[data-letter='" + char + "']")[0];
+
                 if (char != player[i]) {
                     if (indexof != -1) {
                         // char is detected but on wrong place
@@ -207,7 +221,7 @@ export default class extends Controller {
                         if (!letter.classList.contains("letter-gray")) {
                             letter.classList.add("letter-gray");
                         }
-                 
+
                         playAudio(audioNegative);
                     }
                 } else {
@@ -232,7 +246,7 @@ export default class extends Controller {
             inputContent = "";
 
             if (correctAnswers == player.length) {
-                if(!isStreakMode) {
+                if (!isStreakMode) {
                     showModal("win");
                     playAudio(audioApplause);
                     document.onkeydown = null;
@@ -241,13 +255,13 @@ export default class extends Controller {
                         inputLetters[i].removeEventListener("click", keyClick);
                     }
                 } else {
-                    setTimeout(function (){
+                    setTimeout(function () {
                         initKeyboard();
                         initGame();
                         currentStreak++;
-                        updateStreak();                     
+                        updateStreak();
                     }, 1500);
-                    
+
                 }
             } else {
                 checkIfLost();
@@ -266,12 +280,12 @@ export default class extends Controller {
 
             for (let i = 0, row; row = table.rows[i]; i++) {
 
-                if(i >= attempts) { break; }
+                if (i >= attempts) { break; }
 
                 for (let j = 0, col; col = row.cells[j]; j++) {
-                    if(col.classList == "letter-red") {
+                    if (col.classList == "letter-red") {
                         result += red;
-                    } else if(col.classList == "letter-yellow") {
+                    } else if (col.classList == "letter-yellow") {
                         result += yellow;
                     } else {
                         result += black;
@@ -290,22 +304,23 @@ export default class extends Controller {
 
             if (isStreakMode) {
                 emoji = (currentStreak > 0) ? "✅" : "❌";
-                streak = "I have guessed "+currentStreak+" CS "+players+"%0A%0A";
+                streak = "I have guessed " + currentStreak + " CS " + players + "%0A%0A";
                 wordleCount = "- STREAK MODE";
             }
 
             document.getElementById("resume").innerHTML = result;
-            document.getElementById("twitter-share-button").href = "https://twitter.com/intent/tweet?text="+emoji+" CS WORDLE "+wordleCount+" %0A%0A"+streak+result.replaceAll("<br />", "%0A")
-                                                                    + "%0Ahttps://cs-wordle.com";
+            document.getElementById("twitter-share-button").href = "https://twitter.com/intent/tweet?text=" + emoji + " CS WORDLE " + wordleCount + " %0A%0A" + streak + result.replaceAll("<br />", "%0A")
+                + "%0Ahttps://cs-wordle.com";
         }
 
         function showModal(result) {
-            let attempts = currentLine-1;
+            let attempts = currentLine - 1;
             let modalTitle = "";
             let modalAttempts = "";
+            document.getElementById("modal-share-button").style.display = "block";
             resumeGame(result, attempts);
 
-            if(isStreakMode) {
+            if (isStreakMode) {
                 document.getElementById("potd").style.display = "block";
                 document.getElementById("streak").style.display = "none";
             } else {
@@ -313,14 +328,14 @@ export default class extends Controller {
                 document.getElementById("streak").style.display = "block";
             }
 
-            if(result === "win") {
+            if (result === "win") {
                 modalTitle = "Congratulations";
-                modalAttempts = "You found the player of the day after "+attempts+" attempts";
+                modalAttempts = "You found the player of the day after " + attempts + " attempts";
             } else {
                 modalTitle = "Too bad";
                 modalAttempts = "The player was : " + playerToFind;
 
-                if(isStreakMode) modalTitle = "You guessed "+currentStreak+" players in a row !";   
+                if (isStreakMode) modalTitle = "You guessed " + currentStreak + " players in a row !";
             }
 
             document.getElementById("attempts").innerHTML = modalAttempts;
@@ -329,11 +344,11 @@ export default class extends Controller {
         }
 
         function updateStreak() {
-            document.getElementById("current-streak").innerHTML = "Current streak : "+currentStreak;
+            document.getElementById("current-streak").innerHTML = "Current streak : " + currentStreak;
         }
 
         function convertToKeyCode(target) {
-            if(target === "↲") {
+            if (target === "↲") {
                 return 13;
             } else if (target === "⌫") {
                 return 8;
@@ -354,18 +369,22 @@ export default class extends Controller {
 
         document.onkeydown = keyInput;
 
-        function keyClick () {
+        function keyClick() {
             let object = {
                 keyCode: convertToKeyCode(this.getAttribute("data-letter"))
             }
             keyInput(object);
         }
 
-        function keyInput (e) {
+        function keyInput(e) {
             if (e.keyCode === 13) {  // Enter
                 // check player only if answer provided is long enough
                 if (inputContent.length == playerToFind.length) {
-                    checkLine(playerToFind)
+                    if (playerList.includes(inputContent.toLowerCase())) {
+                        checkLine(playerToFind);
+                    } else {
+                        notValidPlayer();
+                    }
                 }
             } else if (e.keyCode === 8) { // Return - remove last char
                 inputContent = inputContent.slice(0, -1);
@@ -377,11 +396,11 @@ export default class extends Controller {
 
                     document.querySelectorAll("#grid tr:nth-of-type(" + currentLine + ") td")[currentColumn].innerHTML = char;
                     currentColumn++;
-    
+
                     let clic = new Audio(clickPath);
                     clic.volume = 0.2;
                     playAudio(clic);
-    
+
                     inputContent += char;
                 }
             }
