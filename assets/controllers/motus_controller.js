@@ -72,6 +72,11 @@ export default class extends Controller {
                     div.appendChild(divLetter);
                 }
             }
+
+            let inputLetters = document.getElementsByClassName("letter");
+            for (let i = 0; i < inputLetters.length; i++) {
+                inputLetters[i].addEventListener("click", keyClick, false);
+            }
         }
 
         function initGame() {
@@ -361,11 +366,6 @@ export default class extends Controller {
         // Starting game
         initKeyboard();
         initGame();
-
-        let inputLetters = document.getElementsByClassName("letter");
-        for (let i = 0; i < inputLetters.length; i++) {
-            inputLetters[i].addEventListener("click", keyClick, false);
-        }
 
         document.onkeydown = keyInput;
 
