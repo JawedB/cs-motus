@@ -1,5 +1,9 @@
 {% extends 'base.html.twig' %}
 
+{% block playbutton %}
+<a type="button" class="btn btn-warning btn-style" href="{{path('app_potd')}}">Player of the day</a>
+{% endblock %}
+
 {% block body %}
 <div class="content" data-type="streak" data-controller="motus" id="container-motus">
 
@@ -13,7 +17,6 @@
         </div>
 
         <div class="col-4 text-end">
-            <a type="button" class="btn btn-warning btn-style" href="{{path('app_potd')}}">Player of the day</a>
         </div>
     </div>
 

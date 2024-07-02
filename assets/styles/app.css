@@ -28,11 +28,21 @@ body {
     bottom: 0;
 }
 
+#grid {
+    table-layout: fixed;
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 600px;
+}
+
 #grid td {
     background-color: rgb(3, 122, 202);
     border: 1px solid black;
-    width: 5vh;
-    height: 10vh;
+
+    width: 8vh;
+    height: 8vh;
+    display: inline-block;
+    padding-top: 20px;
 }
 
 .content,
@@ -54,15 +64,15 @@ body {
 .content {
     display: flex;
     flex-direction: column;
-    margin-left: 25%;
-    margin-right: 25%;
+    margin-left: 15%;
+    margin-right: 15%;
     justify-content: space-between;
     height: 100%;
 }
 
 .breadcrumb {
-    margin-left: 25%;
-    margin-right: 25%;
+    margin-left: 20%;
+    margin-right: 20%;
     justify-content: space-between;
     height: 100%;
 }
@@ -183,4 +193,53 @@ body {
 
 #modal-info-button:hover, #modal-share-button:hover {
     cursor: pointer;
+}
+
+/* RESPONSIVE */
+@media screen and (max-width: 1200px) {
+    .breadcrumb, .content {
+        margin-left: 4%;
+        margin-right: 4%;
+    }
+
+    .modal-body {
+        font-size: 18px;
+    }
+
+    #grid {
+        min-width: 0;
+    }
+
+    #grid tr:has(> :nth-child(6)) td { /* 5 elements or more */
+        width: 7vh;
+    }
+
+    #grid tr:has(> :nth-child(7)) td {
+        width: 6vh;
+    }
+
+    #grid tr:has(> :nth-child(8)) td {
+        width: 5vh;
+    }
+
+    #grid tr:has(> :nth-child(9)) td {
+        width: 4vh;
+    }
+
+    #grid tr:has(> :nth-child(11)) td {
+        width: 3.5vh;
+        height: 6vh;
+        padding-top: 10px;
+    }
+
+    .letter {
+        height: 35px;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    #not-valid {
+        font-size: 15px;
+        text-transform: initial;
+    }
 }

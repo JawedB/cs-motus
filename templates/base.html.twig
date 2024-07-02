@@ -18,15 +18,15 @@
 	</head>
 	<body data-controller="index">
 		<div class="row breadcrumb">
-			<div class="row mt-4">
-				<div class="col-lg-3 col-12">
-					<div class="row pt-2">
+			<div class="row mt-1">
+				<div class="col-3">
+					<div class="row">
 						<div class="col" id="sound">🔊</div>
 						<div class="col" id="modal-info-button">ℹ️</div>
 						<div class="col" id="modal-share-button">🔗</div>
 					</div>
 				</div>
-				<div class="col-lg-7 col-12">
+				<div class="col-7">
 					<h1>
 						<a href="{{path('app_potd')}}">CS WORDLE</a>
 					</h1>
@@ -35,6 +35,14 @@
 					
 				</div>
 			</div>
+		</div>
+
+		<div class="row mt-1">
+			{% block playbutton %}
+			<div class="col-12 d-flex justify-content-center">
+		    	<a type="button" class="btn btn-warning btn-style" href="{{path('app_streak')}}">Play Streak Mode</a>
+			</div>
+			{% endblock %}
 		</div>
 
 		<div class="modal fade" id="modal-info" tabindex="-1" role="dialog" aria-hidden="true">
