@@ -16,7 +16,7 @@
         "type": "js"
     },
     "\/assets\/controllers\/motus_controller.js": {
-        "path": "\/assets\/controllers\/motus_controller-1f88d89c04f20ab66e55029174a702cb.js",
+        "path": "\/assets\/controllers\/motus_controller-36c23af7d3a5e967b8d0ecbbf81fb987.js",
         "type": "js"
     },
     "\/assets\/controllers\/index_controller.js": {
@@ -24,7 +24,7 @@
         "type": "js"
     },
     "\/assets\/styles\/app.css": {
-        "path": "\/assets\/styles\/app-c35f234a59eee7e310eb42ebada53a92.css",
+        "path": "\/assets\/styles\/app-a0e61830ca3e831052054539dd0337f8.css",
         "type": "css"
     },
     "@hotwired\/stimulus": {

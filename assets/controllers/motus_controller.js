@@ -60,6 +60,7 @@ export default class extends Controller {
             for (let row in rows) {
                 let div = document.createElement("div");
                 div.classList.add("row");
+                div.classList.add("col-lg-8");
 
                 keyboard.appendChild(div);
 

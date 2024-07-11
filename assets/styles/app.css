@@ -4,6 +4,10 @@ body {
     height: 100%;
 }
 
+h2 {
+    font-size: 15px;
+}
+
 #modal-share-button {
     display: none;
 }
@@ -75,6 +79,10 @@ body {
     margin-right: 20%;
     justify-content: space-between;
     height: 100%;
+}
+
+.breadcrumb > .row {
+    width: 100%;
 }
 
 .links a {
@@ -196,6 +204,12 @@ body {
 }
 
 /* RESPONSIVE */
+@media screen and (min-width: 1201px) {
+    #keyboard .col-lg-8 {
+        margin: auto;
+    }
+}
+
 @media screen and (max-width: 1200px) {
     .breadcrumb, .content {
         margin-left: 4%;
@@ -240,6 +254,6 @@ body {
 
     #not-valid {
         font-size: 15px;
-        text-transform: initial;
+        text-transform: initial !important;
     }
 }
