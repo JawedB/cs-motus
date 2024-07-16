@@ -24,6 +24,7 @@ export default class extends Controller {
 
         // Global Variables
         var playerToFind = "";
+        var playerList = [];
         var currentLine = 1;
         var currentColumn = 0;
         var audioPositive = new Audio(positivePath);
@@ -38,7 +39,6 @@ export default class extends Controller {
         var isStreakMode = 0;
         var currentStreak = 0;
         var isAudio = 1;
-        var playerList = []; // todo : supprimer après passage en BDD
 
         function playAudio(elem) {
             if (isAudio) {
@@ -86,20 +86,15 @@ export default class extends Controller {
             inputContent = "";
             let motus = document.getElementById("container-motus");
             let gametype = motus.getAttribute("data-type");
+
+            console.log(gametype);
+
             if (gametype === "streak") {
                 isStreakMode = 1;
+                //player = playerList[Math.floor(Math.random()*items.length)];
+                player = playerList[Math.floor(Math.random()*items.length)];
             }
-
-            playerList = [
-                "magixx", "zont1x", "donk", "niko", "hunter", "nexa", "hooxi", "m0nesy", "aleksib", "wonderful", "fl1t", "jame", "norbert", "fame", "snappi", "magisk", "maden",
-                "sunpayus", "boros", "electronic", "siuhy", "torzsi", "jimpphat", "xertion", "gla1ve", "goofy", "dycha", "hades", "kylar", "s1mple", "senzu", "mzinho", "brollan",
-                "br0", "art", "910", "naf", "sdy", "nbk", "b1t", "karrigan", "apex", "rain", "frozen", "magisk", "zywoo", "mezii", "chopper", "hobbit", "ropz", "broky", "sh1ro",
-                "ax1le", "flamez", "spinx", "nertz", "teses", "nicoodoz", "sjuush", "kyxsan", "device", "stavn", "blamef", "jabbi", "staehr", "snax", "acor", "keoz",
-                "isak", "volt", "cadian", "twistzz", "yekindar", "skullz", "bodyy", "krimz", "afro", "kyuubii", "matys", "demqq", "krasnal", "styko", "jkaem", "nawwk", "sense",
-                "cacanito", "maj3r", "xantares", "woxic", "calyx", "wicadia", "elige", "floppy", "hallzerk", "grim", "fallen", "chelo", "kscerato", "chelo", "yuurih", "blitz", "techno",
-                "k1to"
-            ];
-            let player = playerList[Math.floor(Math.random() * playerList.length)];
+            
             playerToFind = player;
 
             // Fill an associative array which count for every letter its occurence
@@ -364,9 +359,31 @@ export default class extends Controller {
             }
         }
 
+        function initPlayerList() {
+            // call api app_player_list
+            let xhr = new XMLHttpRequest();
+            xhr.responseType = "json";
+            xhr.open("GET", callPlayerList);
+            xhr.send();
+            xhr.onload = function () {
+                if (xhr.status != 200) { // analyse l'état HTTP de la réponse
+                    console.log(`Error getting PlayerList`); // e.g. 404: Not Found
+                } else { // show the result
+                    console.log(`Done, got ${xhr.response.length} bytes`); // response est la réponse du serveur
+                    console.log(xhr.response);
+                    playerList = [...xhr.response];
+                }
+            }
+
+            xhr.onerror = function () {
+                console.log(`Error getting PlayerList`); // e.g. 404: Not Found
+            };
+        }
+
         // Starting game
         initKeyboard();
         initGame();
+        initPlayerList();
 
         document.onkeydown = keyInput;
 
