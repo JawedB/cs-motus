@@ -25,6 +25,7 @@ export default class extends Controller {
         // Global Variables
         var playerToFind = "";
         var playerList = [];
+        var playerListStreak = [];
         var currentLine = 1;
         var currentColumn = 0;
         var audioPositive = new Audio(positivePath);
@@ -87,14 +88,12 @@ export default class extends Controller {
             let motus = document.getElementById("container-motus");
             let gametype = motus.getAttribute("data-type");
 
-            console.log(gametype);
-
             if (gametype === "streak") {
                 isStreakMode = 1;
-                //player = playerList[Math.floor(Math.random()*items.length)];
-                player = playerList[Math.floor(Math.random()*items.length)];
+                playerListStreak = [...playerList];
+                player = playerListStreak[Math.floor(Math.random()*playerListStreak.length)];
             }
-            
+
             playerToFind = player;
 
             // Fill an associative array which count for every letter its occurence
@@ -257,6 +256,9 @@ export default class extends Controller {
                     }
                 } else {
                     setTimeout(function () {
+                        // remove last player from playerList
+                        playerListStreak = playerListStreak.filter(e => e !== player);
+
                         initKeyboard();
                         initGame();
                         currentStreak++;
@@ -368,10 +370,10 @@ export default class extends Controller {
             xhr.onload = function () {
                 if (xhr.status != 200) { // analyse l'état HTTP de la réponse
                     console.log(`Error getting PlayerList`); // e.g. 404: Not Found
-                } else { // show the result
-                    console.log(`Done, got ${xhr.response.length} bytes`); // response est la réponse du serveur
-                    console.log(xhr.response);
+                } else {
                     playerList = [...xhr.response];
+
+                    initGame();
                 }
             }
 
@@ -382,9 +384,8 @@ export default class extends Controller {
 
         // Starting game
         initKeyboard();
-        initGame();
         initPlayerList();
-
+        
         document.onkeydown = keyInput;
 
         function keyClick() {
