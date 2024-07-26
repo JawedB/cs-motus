@@ -2,6 +2,13 @@ import { Controller } from '@hotwired/stimulus';
 
 export default class extends Controller {
     connect() {
+        // navbar
+        if (window.location.pathname.split("/").pop() == "streak") {
+            document.getElementById("link-streak").className = "nav-link active";
+        } else {
+            document.getElementById("link-home").className = "nav-link active";
+        }
+
         // Init Modal
         var modal = new bootstrap.Modal(document.getElementById('modal-result'));
         var modalInfo = new bootstrap.Modal(document.getElementById('modal-info'));
@@ -12,6 +19,7 @@ export default class extends Controller {
         document.getElementById("close-modal").addEventListener("click", function () { modal.hide() }, false);
 
         // Sound
+        /*
         document.getElementById("sound").addEventListener("click", function () {
             if (this.innerHTML === "🔊") {
                 this.innerHTML = "🔈";
@@ -20,7 +28,7 @@ export default class extends Controller {
                 this.innerHTML = "🔊";
                 isAudio = 1;
             }
-        }, false);
+        }, false);*/
 
         // Global Variables
         var playerToFind = "";

@@ -17,37 +17,21 @@
 			{{ importmap('app') }}
 		{% endblock %}
 	</head>
-	<body data-controller="index">
-		<div class="breadcrumb">
-			<div class="row">
-				<div class="col-3">
-					<div class="row">
-						<div class="col" id="sound">🔊</div>
-						<div class="col" id="modal-info-button">ℹ️</div>
-						<div class="col" id="modal-share-button">🔗</div>
-					</div>
-				</div>
-				<div class="col-7">
-					<h1>
-						<a href="{{path('app_potd')}}">CS WORDLE</a>
-					</h1>
-					<h2>
-						<span>{% block subtitle %}Player of the day{% endblock %}</span>
-					</h2>
-				</div>
-				<div class="col-2">
-					
-				</div>
-			</div>
-		</div>
 
-		<div class="row mt-1">
-			<div class="col-12 d-flex justify-content-center">
-				{% block playbutton %}
-		    		<a type="button" class="btn btn-warning btn-style" href="{{path('app_streak')}}">Play Streak Mode</a>
-				{% endblock %}
-			</div>
-		</div>
+	<body class="container" data-controller="index">
+		<h1>
+			<div class="col" id="modal-info-button">ℹ️</div>
+			<div class="col" id="modal-share-button">🔗</div>
+			<a href="{{path('app_potd')}}">CS WORDLE</a>
+		</h1>
+		<ul class="nav nav-pills nav-fill">
+			<li class="nav-item">
+				<a class="nav-link" id="link-home" href="{{path('app_potd')}}">Player of the day</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="link-streak" href="{{path('app_streak')}}">Streak</a>
+			</li>
+		</ul>
 
 		<div class="modal fade" id="modal-info" tabindex="-1" role="dialog" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
