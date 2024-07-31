@@ -18,42 +18,17 @@ export default class extends Controller {
         document.getElementById("close-modal-info").addEventListener("click", function () { modalInfo.hide() }, false);
         document.getElementById("close-modal").addEventListener("click", function () { modal.hide() }, false);
 
-        // Sound
-        /*
-        document.getElementById("sound").addEventListener("click", function () {
-            if (this.innerHTML === "🔊") {
-                this.innerHTML = "🔈";
-                isAudio = 0;
-            } else {
-                this.innerHTML = "🔊";
-                isAudio = 1;
-            }
-        }, false);*/
-
         // Global Variables
         var playerToFind = "";
         var playerList = [];
         var playerListStreak = [];
         var currentLine = 1;
         var currentColumn = 0;
-        var audioPositive = new Audio(positivePath);
-        audioPositive.volume = 0.2;
-        var audioNegative = new Audio(negativePath);
-        audioNegative.volume = 0.2;
-        var audioApplause = new Audio(applausePath);
-        audioApplause.volume = 0.2;
         const lineNumber = 6;
         var letterOccurences = [];
         var inputContent = "";
         var isStreakMode = 0;
         var currentStreak = 0;
-        var isAudio = 1;
-
-        function playAudio(elem) {
-            if (isAudio) {
-                elem.play();
-            }
-        }
 
         function initKeyboard() {
             let keyboard = document.getElementById("keyboard");
@@ -100,6 +75,8 @@ export default class extends Controller {
                 isStreakMode = 1;
                 playerListStreak = [...playerList];
                 player = playerListStreak[Math.floor(Math.random()*playerListStreak.length)];
+            } else {
+                player = playerOfTheDay;
             }
 
             playerToFind = player;
@@ -127,8 +104,6 @@ export default class extends Controller {
 
             grid.replaceChildren();
             grid.insertAdjacentHTML('beforeend', tableContent);
-
-            console.log(player);
         }
 
         // Example : electronic
@@ -229,8 +204,6 @@ export default class extends Controller {
                         if (!letter.classList.contains("letter-gray")) {
                             letter.classList.add("letter-gray");
                         }
-
-                        playAudio(audioNegative);
                     }
                 } else {
                     // char in good place
@@ -244,8 +217,6 @@ export default class extends Controller {
                     // So if we found a red E but occurences already null we have to remove yellow from last E
                     checkLastYellowChar(char, tempLetterOccurences)
                     tempLetterOccurences[char]--;
-
-                    playAudio(audioPositive);
                 }
             }
 
@@ -256,7 +227,6 @@ export default class extends Controller {
             if (correctAnswers == player.length) {
                 if (!isStreakMode) {
                     showModal("win");
-                    playAudio(audioApplause);
                     document.onkeydown = null;
                     let inputLetters = document.getElementsByClassName("letter");
                     for (let i = 0; i < inputLetters.length; i++) {
@@ -390,12 +360,6 @@ export default class extends Controller {
             };
         }
 
-        // Starting game
-        initKeyboard();
-        initPlayerList();
-        
-        document.onkeydown = keyInput;
-
         function keyClick() {
             let object = {
                 keyCode: convertToKeyCode(this.getAttribute("data-letter"))
@@ -424,13 +388,15 @@ export default class extends Controller {
                     document.querySelectorAll("#grid tr:nth-of-type(" + currentLine + ") td")[currentColumn].innerHTML = char;
                     currentColumn++;
 
-                    let clic = new Audio(clickPath);
-                    clic.volume = 0.2;
-                    playAudio(clic);
-
                     inputContent += char;
                 }
             }
         };
+
+        // Starting game
+        initKeyboard();
+        initPlayerList();
+        
+        document.onkeydown = keyInput;
     }
 }
